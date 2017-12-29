@@ -15,7 +15,7 @@ defmodule HeatvisionServer.Mixfile do
   def application do
     [
       extra_applications: [:logger],
-      mod: {HeatvisionServer.Application, []}
+      mod: {Heatvision.Application, []}
     ]
   end
 

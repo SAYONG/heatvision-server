@@ -1,4 +1,4 @@
-defmodule HeatvisionWorker do
+defmodule Heatvision.Worker do
   def start_link(track) do
     pid = spawn_link(__MODULE__, :init, [track])
     {:ok, pid}
@@ -12,7 +12,11 @@ defmodule HeatvisionWorker do
     IO.puts "Starting Heatvision on track #{track}"
     stream = ExTwitter.stream_filter(track: track)
     for tweet <- stream do
-      IO.puts tweet.text
+      if tweet.place do
+        IO.puts tweet.text
+      else
+        nil
+      end
     end
   end
 end

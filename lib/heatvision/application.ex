@@ -1,4 +1,4 @@
-defmodule HeatvisionServer.Application do
+defmodule Heatvision.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -14,7 +14,7 @@ defmodule HeatvisionServer.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: HeatvisionServer.Supervisor]
+    opts = [strategy: :one_for_one, name: Heatvision.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
