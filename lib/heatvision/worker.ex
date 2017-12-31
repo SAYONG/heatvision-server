@@ -11,12 +11,24 @@ defmodule Heatvision.Worker do
   def init(track) do
     IO.puts "Starting Heatvision on track #{track}"
     stream = ExTwitter.stream_filter(track: track)
-    for tweet <- stream do
-      if tweet.place do
-        IO.puts tweet.text
-      else
-        nil
-      end
+    state = %{}
+    loop(stream, state)
+  end
+
+  def loop(stream, state) do
+    tweet =  case Enum.take(stream, 1) do
+      [data] -> data
+      _ -> nil
     end
+    new_state = cond do
+      tweet && tweet.place ->
+        key = {tweet.place.country_code, tweet.place.name}
+        IO.inspect key
+        Map.update(state, key, 1, fn(a) -> a + 1 end)
+      true ->
+        state
+    end
+    IO.inspect new_state
+    loop(stream, new_state)
   end
 end
